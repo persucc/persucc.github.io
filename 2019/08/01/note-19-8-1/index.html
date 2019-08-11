@@ -15,17 +15,18 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="关于Java的List（列表），Set（集合），++a和a++的具体区别">
+<meta name="keywords" content="Java,数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/2019/07/09/hello-world/index.html">
+<meta property="og:title" content="随笔笔记（2019.8.1）">
+<meta property="og:url" content="http://yoursite.com/2019/08/01/note-19-8-1/index.html">
 <meta property="og:site_name" content="persucc">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="关于Java的List（列表），Set（集合），++a和a++的具体区别">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-01T13:10:23.721Z">
+<meta property="og:updated_time" content="2019-08-05T14:11:51.791Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="随笔笔记（2019.8.1）">
+<meta name="twitter:description" content="关于Java的List（列表），Set（集合），++a和a++的具体区别">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -57,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Hexo | persucc</title>
+<title>随笔笔记（2019.8.1） | persucc</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -264,11 +265,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-note-19-8-1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/07/09/hello-world/" class="article-date">
-      <time datetime="2019-07-09T02:13:40.591Z" itemprop="datePublished">2019-07-09</time>
+      <a href="/2019/08/01/note-19-8-1/" class="article-date">
+      <time datetime="2019-08-01T03:02:08.000Z" itemprop="datePublished">2019-08-01</time>
 </a>
 
 
@@ -283,7 +284,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hexo
+      随笔笔记（2019.8.1）
     </h1>
   
 
@@ -293,6 +294,10 @@
         
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -300,19 +305,15 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <p>关于Java的List（列表），Set（集合），++a和a++的具体区别</p>
+<a id="more"></a>
+<p>List：<br>ArrayList（可变数组）：基于数组的数据结构，遍历最好采用随机索引和foreach去遍历。尽量少用add，会造成大部分元素的移动，时间复杂度为O(n)，少添加和删除。<br>LinkedList：基于双向链表的数据结构，遍历最好采用迭代器和foreach去遍历，可以用add，链表的添加和删除都是O(1)<br>Vector：类似于ArraList，多一个遍历方法Emuration（类似于iterator）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">//三种遍历方式</span><br><span class="line">public static void traverseByIterator(ArrayList&lt;Integer&gt; a1)&#123;</span><br><span class="line">    	long startTime = System.nanoTime();</span><br><span class="line">    	System.out.println(&quot;=========迭代器遍历=========&quot;);</span><br><span class="line">    	Iterator&lt;Integer&gt;iter1 = a1.iterator();</span><br><span class="line">    	while(iter1.hasNext()) &#123;</span><br><span class="line">    		iter1.next();</span><br><span class="line">    	&#125;</span><br><span class="line">    	long endTime = System.nanoTime();</span><br><span class="line">    	long duration = endTime - startTime;</span><br><span class="line">    	System.out.println(duration+&quot;纳秒&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">	public static void traverseByIndex(ArrayList&lt;Integer&gt; a1)&#123;</span><br><span class="line">    	long startTime = System.nanoTime();</span><br><span class="line">    	System.out.println(&quot;=========随机索引遍历=========&quot;);</span><br><span class="line">    	for(int i=0;i &lt; a1.size();++i) &#123;</span><br><span class="line">    		a1.get(i);</span><br><span class="line">    	&#125;</span><br><span class="line">    	long endTime = System.nanoTime();</span><br><span class="line">    	long duration = endTime - startTime;</span><br><span class="line">    	System.out.println(duration+&quot;纳秒&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">	public static void traverseByFor(ArrayList&lt;Integer&gt; a1)&#123;</span><br><span class="line">    	long startTime = System.nanoTime();</span><br><span class="line">    	System.out.println(&quot;=========For循环遍历=========&quot;);</span><br><span class="line">    	for(Integer item : a1) &#123;</span><br><span class="line">    		;</span><br><span class="line">    	&#125;</span><br><span class="line">    	long endTime = System.nanoTime();</span><br><span class="line">    	long duration = endTime - startTime;</span><br><span class="line">    	System.out.println(duration+&quot;纳秒&quot;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>Set：<br>HashSet和LinkedHashSet的判断是根据hashCode和equals来进行判别两个是否对象是否相等，而TreeSet必须通过实现comparable接口里面的compareTo方法，否则会报语法错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">class cat&#123;</span><br><span class="line">	private int size;</span><br><span class="line">	cat(int size)&#123;</span><br><span class="line">		this.size = size;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">//测试</span><br><span class="line">    HashSet&lt;cat&gt;hs = new HashSet&lt;cat&gt;();</span><br><span class="line">    hs.add(new cat(1));</span><br><span class="line">    hs.add(new cat(1));</span><br><span class="line">    System.out.println(hs.size());</span><br><span class="line">//输出2   </span><br><span class="line"></span><br><span class="line">class dog&#123;</span><br><span class="line">	private int size;</span><br><span class="line">	dog(int size)&#123;</span><br><span class="line">		this.size = size;</span><br><span class="line">	&#125;</span><br><span class="line">	public int hashCode() &#123;</span><br><span class="line">		System.out.println(&quot;Dog hashCode&quot;);</span><br><span class="line">		return size;</span><br><span class="line">	&#125;</span><br><span class="line">/*该方法的参数必须是Object类型，如果为dog类型虽然不会报错，但输出结果会为2，equals方法不会被调用*/</span><br><span class="line">	public boolean equals(Object obj) &#123;</span><br><span class="line">		System.out.println(&quot;Dog equals&quot;);</span><br><span class="line">		if(0 == size - ((dog)obj).getSize())</span><br><span class="line">			return true;</span><br><span class="line">		return false;</span><br><span class="line">	&#125;</span><br><span class="line">	public String toString() &#123;</span><br><span class="line">		System.out.println(&quot;Dog toString&quot;);</span><br><span class="line">		return size + &quot;&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	public int getSize() &#123;</span><br><span class="line">		return size;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">//测试</span><br><span class="line">        LinkedHashSet&lt;dog&gt;hs2 = new LinkedHashSet&lt;dog&gt;();</span><br><span class="line">		hs2.add(new dog(1));</span><br><span class="line">		hs2.add(new dog(1));</span><br><span class="line">		System.out.println(hs2.size());</span><br><span class="line">//输出1</span><br><span class="line"></span><br><span class="line">//tiger类实现Comparable接口中的compareTo()方法</span><br><span class="line">class tiger implements Comparable&#123;</span><br><span class="line">	private int size;</span><br><span class="line">	tiger(int size)&#123;</span><br><span class="line">		this.size = size;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public int getSize() &#123;</span><br><span class="line">		return size;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public int compareTo(Object obj) &#123;</span><br><span class="line">	   return size - ((tiger)obj).getSize();</span><br><span class="line">			</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//测试，最后输出1</span><br><span class="line">        TreeSet&lt;tiger&gt; ts = new TreeSet&lt;tiger&gt;();</span><br><span class="line">		ts.add(new tiger(1));</span><br><span class="line">		ts.add(new tiger(1));</span><br><span class="line">		System.out.println(ts.size());</span><br><span class="line"></span><br><span class="line">//如果写TreeSet&lt;dog&gt; ts = new TreeSet&lt;dog&gt;();会报语法错误</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>a = 1：首先将常量1压入栈顶，后面将栈顶1弹出赋值给a，栈为空<br>a = a++：结果a = 1，因为a = a++是先将a的值1压入栈顶，再执行a+1操作，这时a的值为2，最后将栈顶的1弹出赋值给a，所以a=1；<br>a = ++a：结果a=2，因为a = ++a是先将a执行a+1操作，此时a等于，再将a的数值2压入栈顶，最后将2弹出并赋值给a，所以a=2</p>
 
       
     </div>
@@ -321,13 +322,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/07/09/hello-world/">Hexo</a></p>
+        <p><span>本文标题:</span><a href="/2019/08/01/note-19-8-1/">随笔笔记（2019.8.1）</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">persucc</a></p>
-        <p><span>发布时间:</span>2019-07-09, 10:13:40</p>
-        <p><span>最后更新:</span>2019-08-01, 21:10:23</p>
+        <p><span>发布时间:</span>2019-08-01, 11:02:08</p>
+        <p><span>最后更新:</span>2019-08-05, 22:11:51</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/07/09/hello-world/" title="Hexo">http://yoursite.com/2019/07/09/hello-world/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/07/09/hello-world/　　作者: persucc" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/08/01/note-19-8-1/" title="随笔笔记（2019.8.1）">http://yoursite.com/2019/08/01/note-19-8-1/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/08/01/note-19-8-1/　　作者: persucc" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -340,11 +341,17 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/08/08/java文件处理/">
+                    java文件处理
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
                 <a href="/2019/07/26/Dijkstra/">
                     Dijkstra
                 </a>
             </div>
-        
         
     </nav>
 
@@ -354,7 +361,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+            
         
     </div>
     <style>
@@ -390,7 +397,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Hexo　| persucc　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"随笔笔记（2019.8.1）　| persucc　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -409,8 +416,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2019/07/09/hello-world/';
-            this.page.identifier = '2019/07/09/hello-world/';
+            this.page.url = 'http://yoursite.com/2019/08/01/note-19-8-1/';
+            this.page.identifier = '2019/08/01/note-19-8-1/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -432,7 +439,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/07/26/Dijkstra/" title="上一篇: Dijkstra">
+            <a href="/2019/08/08/java文件处理/" title="上一篇: java文件处理">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -440,7 +447,9 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2019/07/26/Dijkstra/" title="下一篇: Dijkstra">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
 
