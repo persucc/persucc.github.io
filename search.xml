@@ -8,7 +8,7 @@
       <link href="/2019/08/11/Java-JVM%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
       <url>/2019/08/11/Java-JVM%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
       
-        <content type="html"><![CDATA[<p>Java内存分配不像C++一样，需要程序员自己手动回收内存，C++如果内存回收管理没处理好，会出现内存泄漏，野指针（指向一块随机内存空间，指向已经被删除的对象或者无访问权限的内存空间），而Java拥有自动回收机制的JVM，不需要程序员手动去管理内存空间。下面仔细探讨JVM是怎么回收。</p><a id="more"></a><p>JVM内存结构：</p><img src="/.com//08/11/Java-JVM内存管理/1.jpg" title="This is an test image">]]></content>
+        <content type="html"><![CDATA[<p>Java内存分配不像C++一样，需要程序员自己手动回收内存，C++如果内存回收管理没处理好，会出现内存泄漏，野指针（指向一块随机内存空间，指向已经被删除的对象或者无访问权限的内存空间），而Java拥有自动回收机制的JVM，不需要程序员手动去管理内存空间。下面仔细探讨JVM是怎么回收。</p><a id="more"></a><p>JVM内存结构：</p><img src="/.com//08/11/Java-JVM内存管理/1.jpeg" title="This is an test image"><p>ysuo:</p><p><img src="/.com//1.jpeg" alt="想输入的提示名字，可不输入"></p>]]></content>
       
       
       
