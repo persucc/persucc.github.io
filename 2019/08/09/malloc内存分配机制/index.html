@@ -15,15 +15,18 @@
 
 
 
-<meta name="keywords" content="C++,操作系统">
+<meta name="description" content="malloc函数可用于动态分配内存，因为有时因为栈的空间较小，而程序所要求的内存空间较大，从而导致内存溢出，所以需要使用malloc函数在堆中申请内存。下面就来详细解释malloc函数是怎么样来分配内存的，并且我们要注意哪些问题。">
+<meta name="keywords" content="C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="malloc内存分配机制">
 <meta property="og:url" content="http://yoursite.com/2019/08/09/malloc内存分配机制/index.html">
 <meta property="og:site_name" content="persucc">
+<meta property="og:description" content="malloc函数可用于动态分配内存，因为有时因为栈的空间较小，而程序所要求的内存空间较大，从而导致内存溢出，所以需要使用malloc函数在堆中申请内存。下面就来详细解释malloc函数是怎么样来分配内存的，并且我们要注意哪些问题。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-11T02:15:41.776Z">
+<meta property="og:updated_time" content="2019-08-14T09:27:56.762Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="malloc内存分配机制">
+<meta name="twitter:description" content="malloc函数可用于动态分配内存，因为有时因为栈的空间较小，而程序所要求的内存空间较大，从而导致内存溢出，所以需要使用malloc函数在堆中申请内存。下面就来详细解释malloc函数是怎么样来分配内存的，并且我们要注意哪些问题。">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -187,7 +190,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图论算法/">图论算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图论算法/">图论算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
                     </div>
                 </section>
                 
@@ -292,7 +295,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/操作系统/">操作系统</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -302,8 +305,15 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <a id="more"></a>
+        <p>malloc函数可用于动态分配内存，因为有时因为栈的空间较小，而程序所要求的内存空间较大，从而导致内存溢出，所以需要使用malloc函数在堆中申请内存。下面就来详细解释malloc函数是怎么样来分配内存的，并且我们要注意哪些问题。</p>
+<a id="more"></a>
+<p>一、堆在计算机中的存在形式<br>1.堆内存在内存中不是连续的，堆空间是由若干个小空间组合而成，在这里我们将每个小空间称为Heap。<br>2.每个Heap都由Header和可分配内存空间组成，Header是一种数据结构，包含这个Heap的一些信息，比如起始地址，空间大小，是否已经被分配，以及指向下一个Heap的指针等等。<br>3.这些Heap组成一个链表结构，用于保持Heap之间的联系。<br>4.一般都是使用指针的形式来访问Heap，不像栈空间可以使用变量名和指针两种形式访问。<br>二、malloc分配机制<br>当使用malloc分配内存时，计算机会依序从内存低地址到高地址开始搜索，直到搜索到一个Heap的可用内存空间大于或等于所需空间时，则将该Heap内存空间分为两部分，一部分用于分配，将该空间的起始地址返回给指针。另一部分将Header中的值修改重新加入Heap链表。为了便于free（）内存空间，经过malloc分配的堆空间也会有个Header来存储必要的信息。如果所有的Heap链中都没有满足的空间，则会返回NULL给指针。<br>这就意味着当有足够的空间可分配时，指针会被赋值地址，否则为NULL。<br>所以当我们使用malloc动态分配内存的时候我们要采用这种形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">char *p = NULL;</span><br><span class="line">p = (char *)malloc(sizeof(char));</span><br><span class="line">if(p)&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>分配成功后，得到的堆内存首地址一定要保存，否则会无法释放堆内存而造成内存泄露。而且不能使用未初始化指针所指向的内存空间。<br>三、指针操作堆空间<br>每当释放堆空间后（free）都应该将指针赋值为NULL。并且使用该指针指向的起始地址会有潜在危险（野指针）。<br>使用指针前判断其值是否为NULL<br>若malloc分配成功，则malloc前的强制类型转换规定链申请的堆空间要存的数据类型<br>四、free内存<br>free（）只是将指针指向的内存空间回收，其指针的值依然存在，所以需要手动置空。当释放未指向任何内存块的指针也会造成内存泄漏，所以在释放时应该先判断指针是否为空。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if(p)&#123;</span><br><span class="line">    free(p);</span><br><span class="line">    p = NULL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结：<br>malloc分配的堆内存结构为Header+内存空间，所以实际空间为sizeof（Header）+内存空间</p>
 
       
     </div>
@@ -315,7 +325,7 @@
         <p><span>本文标题:</span><a href="/2019/08/09/malloc内存分配机制/">malloc内存分配机制</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">persucc</a></p>
         <p><span>发布时间:</span>2019-08-09, 18:13:50</p>
-        <p><span>最后更新:</span>2019-08-11, 10:15:41</p>
+        <p><span>最后更新:</span>2019-08-14, 17:27:56</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/08/09/malloc内存分配机制/" title="malloc内存分配机制">http://yoursite.com/2019/08/09/malloc内存分配机制/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/08/09/malloc内存分配机制/　　作者: persucc" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
