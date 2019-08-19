@@ -15,22 +15,18 @@
 
 
 
-<meta name="description" content="Java不像C++一样，需要程序员手动回收内存。所以当c++程序没有处理好内存回收，将会导致内存泄漏以及野指针（指针指向随机的内存空间，或者是以及删除的对象）等不良后果。Java拥有自动回收机制的JVM，所以对程序的安全性有很大保障。下面来讨论Java的JVM是怎么进行回收工作的。">
+<meta name="description" content="该篇主要叙述本人在编写代码时遇到的知识盲区，然后进行查阅资料所总结的">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java-JVM内存管理">
-<meta property="og:url" content="http://yoursite.com/2019/08/13/Java-JVM内存管理/index.html">
+<meta property="og:title" content="Java基础知识">
+<meta property="og:url" content="http://yoursite.com/2019/08/18/Java基础知识/index.html">
 <meta property="og:site_name" content="persucc">
-<meta property="og:description" content="Java不像C++一样，需要程序员手动回收内存。所以当c++程序没有处理好内存回收，将会导致内存泄漏以及野指针（指针指向随机的内存空间，或者是以及删除的对象）等不良后果。Java拥有自动回收机制的JVM，所以对程序的安全性有很大保障。下面来讨论Java的JVM是怎么进行回收工作的。">
+<meta property="og:description" content="该篇主要叙述本人在编写代码时遇到的知识盲区，然后进行查阅资料所总结的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/08/13/Java-JVM内存管理/1.jpeg">
-<meta property="og:image" content="http://yoursite.com/2019/08/13/Java-JVM内存管理/2.jpeg">
-<meta property="og:image" content="http://yoursite.com/2019/08/13/Java-JVM内存管理/3.jpeg">
-<meta property="og:updated_time" content="2019-08-19T14:57:10.627Z">
+<meta property="og:updated_time" content="2019-08-19T15:00:55.325Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java-JVM内存管理">
-<meta name="twitter:description" content="Java不像C++一样，需要程序员手动回收内存。所以当c++程序没有处理好内存回收，将会导致内存泄漏以及野指针（指针指向随机的内存空间，或者是以及删除的对象）等不良后果。Java拥有自动回收机制的JVM，所以对程序的安全性有很大保障。下面来讨论Java的JVM是怎么进行回收工作的。">
-<meta name="twitter:image" content="http://yoursite.com/2019/08/13/Java-JVM内存管理/1.jpeg">
+<meta name="twitter:title" content="Java基础知识">
+<meta name="twitter:description" content="该篇主要叙述本人在编写代码时遇到的知识盲区，然后进行查阅资料所总结的">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -62,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Java-JVM内存管理 | persucc</title>
+<title>Java基础知识 | persucc</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -269,11 +265,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Java-JVM内存管理" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Java基础知识" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/08/13/Java-JVM内存管理/" class="article-date">
-      <time datetime="2019-08-13T09:27:33.000Z" itemprop="datePublished">2019-08-13</time>
+      <a href="/2019/08/18/Java基础知识/" class="article-date">
+      <time datetime="2019-08-18T14:35:10.000Z" itemprop="datePublished">2019-08-18</time>
 </a>
 
 
@@ -288,7 +284,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Java-JVM内存管理
+      Java基础知识
     </h1>
   
 
@@ -309,19 +305,23 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Java不像C++一样，需要程序员手动回收内存。所以当c++程序没有处理好内存回收，将会导致内存泄漏以及野指针（指针指向随机的内存空间，或者是以及删除的对象）等不良后果。Java拥有自动回收机制的JVM，所以对程序的安全性有很大保障。下面来讨论Java的JVM是怎么进行回收工作的。</p>
+        <p>该篇主要叙述本人在编写代码时遇到的知识盲区，然后进行查阅资料所总结的</p>
 <a id="more"></a>
-<p>一、JVM内存结构</p>
-<img src="/2019/08/13/Java-JVM内存管理/1.jpeg" title="This is an image">
-<p>Java栈：<br>  Java栈是线程私有的，每个方法在执行的同时会创建一个栈。用于存储局部变量表，操作数栈，动态链接等信息。每一个方法调用到执行完成的过程，其实就是对应一个栈帧在虚拟机栈中入栈到出栈的过程<br>程序计数器：<br>  一块比较小的内存空间，可以看作是当前线程所执行的字节码行号指示，通俗的来说就是来指示下一条指令。因为Java的多线程是通过轮流切换来分配处理器的执行时间（表示一个时间段内只有一个线程是处于工作状态的），所以必须每个线程分配一个程序计数器，否则在线程频繁切换时，会导致线程不能正确的执行该线程的下一条指令。<br>Java堆：<br>  与Java栈不同的是，Java堆是所有线程共享的，用于存放对象的实例，几乎所有的对象都会在这里分配内存空间，从回收的角度看，Java堆可分为“新生代”和“老年带”。并且堆空间可以处于物理上的不连续空间，只需要逻辑上的连续即可。JDK1.6之前，字符串常量池位于方法区中，JDK1.7之后转移到Java堆。在Java虚拟机中实现字符串常量的是一个StringTable类，它的实质是一个Hash表。每个Java虚拟机中都只有一份这个Hash表，被所有的类共享。因此更多的数据要存放到堆中，导致堆大小要适配，所以更多的应用程序在堆中的使用差异更小。<br>方法区：<br>  方法区也是所有线程共享，它的主要功能存储虚拟机加载的类信息，常量和编译代码数据。方法区中有一个运行时常量池（注意不是字符串常量池），它存储的是类编译的各种字面量和符号引用。<br>     字面量：文本字符串，八种基本类型的值，final常量（表示成员变量只能被赋值一次，赋值后的值不再改变）<br>     符号引用：类和方法的全限定名（import org.apache.commons.lang3.StringUtils;boolean isEmpty = StringUtils.isNotEmpty(str)；） == （boolean isEmpty = org.springframework.util.StringUtils.isEmpty(str)/;）//全限定名，字段和方法的名称和描述符（static，final）</p>
-<p>二、Java堆回收机制<br>垃圾回收主要考虑的问题有两个：一是效率问题，二是空间碎片问题<br>在前文中已经说过，Java堆有两个区域，“新生代”和“老年代”。新生代又分为三个部分，一个较大的Eden区域和两个Survivor区域。老年代就是一块大内存，没有分区但空间是零散的。因为新生代和老年代所存储的对象不同，为了把效率和碎片空间问题优化，所以两个区域采用不同的算法。<br>新生代-复制算法：<br>  新生代中主要存储比较新的对象，回收多次之后依然存活的对象会移动到老年代。由此可知新生代的垃圾回收比较频繁，复制算法可以将内存分为大小相同的两块，每次分配其中一块，当一块内存已满时，JVM将会对内存进行回收，将还存活的对象复制到其他一块内存，此时这块已满的内存就可以完全释放，不用担心碎片化的问题。这种算法的缺点是内存利用率较低，只能使用一般的内存进行分配。又因为有研究表明，新生代中的对象98%都会被释放，所以完全不用1:1的划分内存空间，所以最新的是将内存分为一块较大得Eden区和两块Survivor区。为什么需要两块Survivor呢，实质上是为了解决碎片化的问题，假定，只有一个Eden区，当该区满的时候，进行Gc（垃圾回收），存活对象放入Survivor区，清空Eden区，当第二次Gc时，有可能Survivor区内的部分对象失活，所以在清除Survivor区时，会出现内存碎片，当有两块Survivor区时可以避免这个问题。最终Java堆使用了两个Survivor区，一个from Survivor，一个to Survivor。第一次Eden满的时候，将存活对象放入from Survivor区，清空Eden。第二次Eden满的时候，将Eden和from Survivor区存活的对象放入to Survivor区，清空前两个区，然后将from Survivor 和 to Survivor互换。这样就解决了碎片化的问题</p>
-<img src="/2019/08/13/Java-JVM内存管理/2.jpeg" title="This is an image">
+<p>//Java抽象类：<br>由来：<br> 分析事物时，发现了共性内容，就出现向上抽取。会有这样一种特殊情况，就是方法功能声明相同，但方法功能主体不同。那么这时也可以抽取，但只抽取方法声    明，不抽取方法主体。 那么此方法就是一个抽象方法。<br> 比如我们要声明一个人类class，人类包含很多种，美国人和中国人。那么人类肯定会说话，但是说的是英语还是汉语需要具体的看是那种人，因为这个人类class   就可以声明为抽象类，声明一个说话的抽象方法，美国人和中国人分别继承然后重写说话的犯法实现自己的说话方式。<br> 1.抽象类是作为父类使用，内部可以有未实现的方法<br> 2.抽象类不可创建对象<br> 3.只有全部实现了抽象类的所有抽象方法，其子类才不为抽象类<br>基本格式：<br>public abstract 返回值类型 方法名（参数）{</p>
+<p>}</p>
+<p>//Java float,double赋值的区别<br>flaot a = 1.2; //错误，1.2默认为double类型，因此程序编译错误<br>flaot a = 1.2f; //正确<br>float a = 1;//正确，整形数据会自动转化为float类型<br>double a = 1;//正确<br>double a = 1.2//正确</p>
+<p>//Java参数传递<br>Conclusions：<br>1.基本类型作为参数传递时，是值传递（在内存中新开辟空间拷贝原值），无论怎么改变方法中的值，都不会改变原值<br>2.当对象作为参数传递时，是把对象所在空间的地址拷贝给形参</p>
+<p>For example：<br>1.基本类型（byte（8bit），short(2byte)，int(4byte)，long(8byte)，float(4byte)，double(8byte)，boolean(ibyte)，char(2byte)）作为参数传递：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Test1 &#123;</span><br><span class="line">       public static void main(String[] args) &#123;</span><br><span class="line">        int n = 3;</span><br><span class="line">        System.out.println(&quot;Before change, n = &quot; + n);</span><br><span class="line">        changeData(n);</span><br><span class="line">        System.out.println(&quot;After changeData(n), n = &quot; + n);</span><br><span class="line">    &#125;</span><br><span class="line">       public static void changeData(int nn) &#123;</span><br><span class="line">        n = 10;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Answers:</span><br><span class="line">Before change, n = 3</span><br><span class="line">After changeData(n), n = 3</span><br></pre></td></tr></table></figure>
 
-<p>老年代-整理标记法：<br>   由于老年代存放的是存活比较久的对象，所以老年代如果也采用复制法的话，会造成很大的内存开销，因为老年代中的对象基本都会存活。<br>   老年代的整理标记法首先将需要存活对象进行标记，然后让存活的对象想着一端移动按照内存地址依次排序，然后将末端内存地址回收。  </p>
-<img src="/2019/08/13/Java-JVM内存管理/3.jpeg" title="This is an image">
+<p>2.对象作为参数传递</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class Test2 &#123;</span><br><span class="line">       public static void main(String[] args) &#123;</span><br><span class="line">        StringBuffer sb = new StringBuffer(&quot;Hello &quot;);</span><br><span class="line">        System.out.println(&quot;Before change, sb = &quot; + sb);</span><br><span class="line">        changeData(sb);</span><br><span class="line">        System.out.println(&quot;After changeData(n), sb = &quot; + sb);</span><br><span class="line">    &#125;</span><br><span class="line">    //方法中进行没有对形参进行new操作</span><br><span class="line">       public static void changeData(StringBuffer strBuf) ；</span><br><span class="line">        strBuf.append(&quot;World!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Answers:</span><br><span class="line">Before change, sb = Hello</span><br><span class="line">After changeData(n), sb = Hello World!</span><br></pre></td></tr></table></figure>
 
-<p>方法区内存回收：<br> 方法区某些时候也叫“永久代”，因为该区存放的是类的信息以及一些常量信息。所以该区的内存难以回收。<br> 虽然方法区的垃圾回收效率低，但有些废弃常量和无用的类还是可以进行回收的。对于无用的类（该类所有实例都被回收，加载该类的ClassLoader也被回收，该类对象在任何地方都未引用）满足以上条件才有可能被回收。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class Test3 &#123;</span><br><span class="line">       public static void main(String[] args) &#123;</span><br><span class="line">        StringBuffer sb = new StringBuffer(&quot;Hello &quot;);</span><br><span class="line">        System.out.println(&quot;Before change, sb = &quot; + sb);</span><br><span class="line">        changeData(sb);</span><br><span class="line">        System.out.println(&quot;After changeData(n), sb = &quot; + sb);</span><br><span class="line">    &#125;</span><br><span class="line">    //对形参进行new操作</span><br><span class="line">       public static void changeData(StringBuffer strBuf) &#123;</span><br><span class="line">           strBuf = new StringBuffer(&quot;Hi &quot;);</span><br><span class="line">           strBuf.append(&quot;World!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Answers:</span><br><span class="line">Before change, sb = Hello</span><br><span class="line">After changeData(n), sb = Hello</span><br><span class="line">//当对形参进行new操作时，会重新申请一块内存，此时新申请对象所指向的空间变为新空间，所以当对new的对象进行修改时，不会影响原值</span><br></pre></td></tr></table></figure>
 
+<p>String对象作形参时，也会申请<br>String类是个特殊的类，对它的一些操作符是重载的，如：<br>String str = “Hello”; 等价于String str = new String(“Hello”);<br>String str = “Hello”;<br>str = str + “ world!”;等价于str = new String((new StringBuffer(str)).append(“ world!”));<br>因此，你只要按上面的方法去分析，就会发现String对象和基本类型一样，一般情况下作为参数传递，在方法内改变了值，而原对象是不会被改变的。</p>
+<p>例题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class CardBoard &#123;</span><br><span class="line">  Short story = 5;</span><br><span class="line">  CardBoard go(CardBoard cb) &#123;</span><br><span class="line">    cb = null;</span><br><span class="line">    return cb;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public static void main(String[] args) &#123;</span><br><span class="line">    CardBoard c1 = new CardBoard();</span><br><span class="line">    CardBoard c2 = new CardBoard();</span><br><span class="line">    CardBoard c3 = c1.go(c2);</span><br><span class="line">    c1 = null;</span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br><span class="line">problem: 当这个程序执行完成后，c1，c2，c3一共有几个为null</span><br><span class="line">answer: 一共有两个，因为在执行go方法时，只是将c2的值，也就是c2所指向内存空间的地址传给cb，所以cb = null，不影响c2的值</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -329,13 +329,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/08/13/Java-JVM内存管理/">Java-JVM内存管理</a></p>
+        <p><span>本文标题:</span><a href="/2019/08/18/Java基础知识/">Java基础知识</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">persucc</a></p>
-        <p><span>发布时间:</span>2019-08-13, 17:27:33</p>
-        <p><span>最后更新:</span>2019-08-19, 22:57:10</p>
+        <p><span>发布时间:</span>2019-08-18, 22:35:10</p>
+        <p><span>最后更新:</span>2019-08-19, 23:00:55</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/08/13/Java-JVM内存管理/" title="Java-JVM内存管理">http://yoursite.com/2019/08/13/Java-JVM内存管理/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/08/13/Java-JVM内存管理/　　作者: persucc" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/08/18/Java基础知识/" title="Java基础知识">http://yoursite.com/2019/08/18/Java基础知识/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/08/18/Java基础知识/　　作者: persucc" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -348,15 +348,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/08/18/Java基础知识/">
-                    Java基础知识
+                <a href="/2019/08/19/三个字符串类的比较/">
+                    三个字符串类的比较
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/08/09/malloc内存分配机制/">
-                    malloc内存分配机制
+                <a href="/2019/08/13/Java-JVM内存管理/">
+                    Java-JVM内存管理
                 </a>
             </div>
         
@@ -404,7 +404,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Java-JVM内存管理　| persucc　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Java基础知识　| persucc　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -423,8 +423,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2019/08/13/Java-JVM内存管理/';
-            this.page.identifier = '2019/08/13/Java-JVM内存管理/';
+            this.page.url = 'http://yoursite.com/2019/08/18/Java基础知识/';
+            this.page.identifier = '2019/08/18/Java基础知识/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -446,7 +446,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/08/18/Java基础知识/" title="上一篇: Java基础知识">
+            <a href="/2019/08/19/三个字符串类的比较/" title="上一篇: 三个字符串类的比较">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -454,7 +454,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/08/09/malloc内存分配机制/" title="下一篇: malloc内存分配机制">
+            <a href="/2019/08/13/Java-JVM内存管理/" title="下一篇: Java-JVM内存管理">
                 <i class="fa fa-angle-right"></i>
             </a>
         

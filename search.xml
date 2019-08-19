@@ -4,6 +4,46 @@
   
     
     <entry>
+      <title>三个字符串类的比较</title>
+      <link href="/2019/08/19/%E4%B8%89%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E7%9A%84%E6%AF%94%E8%BE%83/"/>
+      <url>/2019/08/19/%E4%B8%89%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E7%9A%84%E6%AF%94%E8%BE%83/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> String ,StringBuffer ,StringBuilder </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Java基础知识</title>
+      <link href="/2019/08/18/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+      <url>/2019/08/18/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+      
+        <content type="html"><![CDATA[<p>该篇主要叙述本人在编写代码时遇到的知识盲区，然后进行查阅资料所总结的</p><a id="more"></a><p>//Java抽象类：<br>由来：<br> 分析事物时，发现了共性内容，就出现向上抽取。会有这样一种特殊情况，就是方法功能声明相同，但方法功能主体不同。那么这时也可以抽取，但只抽取方法声    明，不抽取方法主体。 那么此方法就是一个抽象方法。<br> 比如我们要声明一个人类class，人类包含很多种，美国人和中国人。那么人类肯定会说话，但是说的是英语还是汉语需要具体的看是那种人，因为这个人类class   就可以声明为抽象类，声明一个说话的抽象方法，美国人和中国人分别继承然后重写说话的犯法实现自己的说话方式。<br> 1.抽象类是作为父类使用，内部可以有未实现的方法<br> 2.抽象类不可创建对象<br> 3.只有全部实现了抽象类的所有抽象方法，其子类才不为抽象类<br>基本格式：<br>public abstract 返回值类型 方法名（参数）{</p><p>}</p><p>//Java float,double赋值的区别<br>flaot a = 1.2; //错误，1.2默认为double类型，因此程序编译错误<br>flaot a = 1.2f; //正确<br>float a = 1;//正确，整形数据会自动转化为float类型<br>double a = 1;//正确<br>double a = 1.2//正确</p><p>//Java参数传递<br>Conclusions：<br>1.基本类型作为参数传递时，是值传递（在内存中新开辟空间拷贝原值），无论怎么改变方法中的值，都不会改变原值<br>2.当对象作为参数传递时，是把对象所在空间的地址拷贝给形参</p><p>For example：<br>1.基本类型（byte（8bit），short(2byte)，int(4byte)，long(8byte)，float(4byte)，double(8byte)，boolean(ibyte)，char(2byte)）作为参数传递：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Test1 &#123;</span><br><span class="line">       public static void main(String[] args) &#123;</span><br><span class="line">        int n = 3;</span><br><span class="line">        System.out.println(&quot;Before change, n = &quot; + n);</span><br><span class="line">        changeData(n);</span><br><span class="line">        System.out.println(&quot;After changeData(n), n = &quot; + n);</span><br><span class="line">    &#125;</span><br><span class="line">       public static void changeData(int nn) &#123;</span><br><span class="line">        n = 10;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Answers:</span><br><span class="line">Before change, n = 3</span><br><span class="line">After changeData(n), n = 3</span><br></pre></td></tr></table></figure><p>2.对象作为参数传递</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class Test2 &#123;</span><br><span class="line">       public static void main(String[] args) &#123;</span><br><span class="line">        StringBuffer sb = new StringBuffer(&quot;Hello &quot;);</span><br><span class="line">        System.out.println(&quot;Before change, sb = &quot; + sb);</span><br><span class="line">        changeData(sb);</span><br><span class="line">        System.out.println(&quot;After changeData(n), sb = &quot; + sb);</span><br><span class="line">    &#125;</span><br><span class="line">    //方法中进行没有对形参进行new操作</span><br><span class="line">       public static void changeData(StringBuffer strBuf) ；</span><br><span class="line">        strBuf.append(&quot;World!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Answers:</span><br><span class="line">Before change, sb = Hello</span><br><span class="line">After changeData(n), sb = Hello World!</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class Test3 &#123;</span><br><span class="line">       public static void main(String[] args) &#123;</span><br><span class="line">        StringBuffer sb = new StringBuffer(&quot;Hello &quot;);</span><br><span class="line">        System.out.println(&quot;Before change, sb = &quot; + sb);</span><br><span class="line">        changeData(sb);</span><br><span class="line">        System.out.println(&quot;After changeData(n), sb = &quot; + sb);</span><br><span class="line">    &#125;</span><br><span class="line">    //对形参进行new操作</span><br><span class="line">       public static void changeData(StringBuffer strBuf) &#123;</span><br><span class="line">           strBuf = new StringBuffer(&quot;Hi &quot;);</span><br><span class="line">           strBuf.append(&quot;World!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Answers:</span><br><span class="line">Before change, sb = Hello</span><br><span class="line">After changeData(n), sb = Hello</span><br><span class="line">//当对形参进行new操作时，会重新申请一块内存，此时新申请对象所指向的空间变为新空间，所以当对new的对象进行修改时，不会影响原值</span><br></pre></td></tr></table></figure><p>String对象作形参时，也会申请<br>String类是个特殊的类，对它的一些操作符是重载的，如：<br>String str = “Hello”; 等价于String str = new String(“Hello”);<br>String str = “Hello”;<br>str = str + “ world!”;等价于str = new String((new StringBuffer(str)).append(“ world!”));<br>因此，你只要按上面的方法去分析，就会发现String对象和基本类型一样，一般情况下作为参数传递，在方法内改变了值，而原对象是不会被改变的。</p><p>例题：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class CardBoard &#123;</span><br><span class="line">  Short story = 5;</span><br><span class="line">  CardBoard go(CardBoard cb) &#123;</span><br><span class="line">    cb = null;</span><br><span class="line">    return cb;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public static void main(String[] args) &#123;</span><br><span class="line">    CardBoard c1 = new CardBoard();</span><br><span class="line">    CardBoard c2 = new CardBoard();</span><br><span class="line">    CardBoard c3 = c1.go(c2);</span><br><span class="line">    c1 = null;</span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br><span class="line">problem: 当这个程序执行完成后，c1，c2，c3一共有几个为null</span><br><span class="line">answer: 一共有两个，因为在执行go方法时，只是将c2的值，也就是c2所指向内存空间的地址传给cb，所以cb = null，不影响c2的值</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Java-JVM内存管理</title>
       <link href="/2019/08/13/Java-JVM%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
       <url>/2019/08/13/Java-JVM%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
