@@ -15,18 +15,18 @@
 
 
 
-<meta name="description" content="Java有三个字符串类，在编程过程中到底该使用哪个呢，下面来仔细探讨">
+<meta name="description" content="String类是Java中一个最基本的类，因此必须深入理解String类的工作原理以及正确的使用方法">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="三个字符串类的比较">
-<meta property="og:url" content="http://yoursite.com/2019/08/19/三个字符串类的比较/index.html">
+<meta property="og:title" content="String类详解">
+<meta property="og:url" content="http://yoursite.com/2019/08/22/String类详解/index.html">
 <meta property="og:site_name" content="Crazy">
-<meta property="og:description" content="Java有三个字符串类，在编程过程中到底该使用哪个呢，下面来仔细探讨">
+<meta property="og:description" content="String类是Java中一个最基本的类，因此必须深入理解String类的工作原理以及正确的使用方法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-20T08:27:58.929Z">
+<meta property="og:updated_time" content="2019-08-22T09:05:38.327Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="三个字符串类的比较">
-<meta name="twitter:description" content="Java有三个字符串类，在编程过程中到底该使用哪个呢，下面来仔细探讨">
+<meta name="twitter:title" content="String类详解">
+<meta name="twitter:description" content="String类是Java中一个最基本的类，因此必须深入理解String类的工作原理以及正确的使用方法">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -58,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>三个字符串类的比较 | Crazy</title>
+<title>String类详解 | Crazy</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -265,11 +265,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="java-三个字符串类的比较" class="article article-type-java" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-String类详解" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/08/19/三个字符串类的比较/" class="article-date">
-      <time datetime="2019-08-19T10:16:48.000Z" itemprop="datePublished">2019-08-19</time>
+      <a href="/2019/08/22/String类详解/" class="article-date">
+      <time datetime="2019-08-22T09:02:54.000Z" itemprop="datePublished">2019-08-22</time>
 </a>
 
 
@@ -284,7 +284,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      三个字符串类的比较
+      String类详解
     </h1>
   
 
@@ -305,25 +305,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Java有三个字符串类，在编程过程中到底该使用哪个呢，下面来仔细探讨</p>
+        <p>String类是Java中一个最基本的类，因此必须深入理解String类的工作原理以及正确的使用方法</p>
 <a id="more"></a>
-<p>String类型:<br>String类的部分源码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public final class String</span><br><span class="line">    implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence &#123;</span><br><span class="line">    /** The value is used for character storage. */</span><br><span class="line">   private final char value[];//final类型char数组</span><br><span class="line">//省略其他代码……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>由String类源码可以看出，String类是通过字符数组来存储字符串的，但是其value是用final修饰，这说明当字符串的值改变时，就会在内存中产生一个新的空间来存储新的对象，所以String在操作字符串时实质是在不断创建新的对象，原来的对象就会被GC掉，所以String在不断进行增删时效率低。下面来看字符串的截断（subString）方法的源码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public String substring(int beginIndex) &#123;</span><br><span class="line">        if (beginIndex &lt; 0) &#123;</span><br><span class="line">            throw new StringIndexOutOfBoundsException(beginIndex);</span><br><span class="line">        &#125;</span><br><span class="line">        int subLen = value.length - beginIndex;</span><br><span class="line">        if (subLen &lt; 0) &#123;</span><br><span class="line">            throw new StringIndexOutOfBoundsException(subLen);</span><br><span class="line">        &#125;</span><br><span class="line">       //当对原来的字符串进行截取的时候（beginIndex &gt;0），返回的结果是新建的对象</span><br><span class="line">        return (beginIndex == 0) ? this : new String(value, beginIndex, subLen);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>StringBuffer,StringBuilder都是继承抽象类AbstractStringBuilder</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//AbstractStringBuilder部分源码：</span><br><span class="line">abstract class AbstractStringBuilder implements Appendable, CharSequence &#123;</span><br><span class="line">    /**</span><br><span class="line">     * The value is used for character storage.</span><br><span class="line">     */</span><br><span class="line">    char[] value;//一个char类型的数组，非final类型，这一点与String类不同</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * This no-arg constructor is necessary for serialization of subclasses.</span><br><span class="line">     */</span><br><span class="line">    AbstractStringBuilder() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * Creates an AbstractStringBuilder of the specified capacity.</span><br><span class="line">     */</span><br><span class="line">    AbstractStringBuilder(int capacity) &#123;</span><br><span class="line">        value = new char[capacity];//构建了长度为capacity大小的数组</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">//其他代码省略……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>从源码可以看出这个字符数组不是final类型，因此是可变的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//SreingBuffer类的部分源码，因为StringBuilder构造函数实现方式差不多，所以就不贴了</span><br><span class="line">public final class StringBuffer</span><br><span class="line">    extends AbstractStringBuilder</span><br><span class="line">    implements java.io.Serializable, CharSequence</span><br><span class="line">&#123;</span><br><span class="line">   /**</span><br><span class="line">     * Constructs a string buffer with no characters in it and an</span><br><span class="line">     * initial capacity of 16 characters.</span><br><span class="line">     */</span><br><span class="line">    public StringBuffer() &#123;</span><br><span class="line">        super(16);//创建一个默认大小为16的char型数组</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * Constructs a string buffer with no characters in it and</span><br><span class="line">     * the specified initial capacity.</span><br><span class="line">     *</span><br><span class="line">     * @param      capacity  the initial capacity.</span><br><span class="line">     * @exception  NegativeArraySizeException  if the &#123;@code capacity&#125;</span><br><span class="line">     *               argument is less than &#123;@code 0&#125;.</span><br><span class="line">     */</span><br><span class="line">    public StringBuffer(int capacity) &#123;</span><br><span class="line">        super(capacity);//自定义创建大小为capacity的char型数组</span><br><span class="line">    &#125;</span><br><span class="line">//省略其他代码……</span><br></pre></td></tr></table></figure>
-
-<p>从源码可以看出，一开始的StringBuffer默认是分配16个字节的内存空间，当你通过append或者其他方法对StringBuffer对象进行修改，如果出现内存空间不足时，此时JVM会将空间扩充为（原本空间）*2+1个字节</p>
-<p>StringBuffer与StringBuilder的主要区别是线程安全的问题<br>StringBuffer对调用的方法使用了同步锁，所以线程安全，而StringBuilder则没有。因为线程同步必定会消耗资源，所以StringBuilder的效率肯定会比StringBuffer高。实现同步是通过在方法前加上synchronized关键词。下面来看个例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public synchronized StringBuffer reverse() &#123;</span><br><span class="line">    super.reverse();</span><br><span class="line">    return this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public int indexOf(String str) &#123;</span><br><span class="line">    return indexOf(str, 0);</span><br></pre></td></tr></table></figure>
-
-<p>Conclusions:<br>1.String类是不可变的，其余两个是可变的<br>2.String和StringBuffer是线程安全的，StringBuilder线程不安全<br>3.操作少量数据并且不频繁增删使用String，单线程操作大量数据使用StringBuilder，多线程下使用大量数据且需增删则使用StringBuffer<br>4.StringBuffer，StringBuilder常用方法，append方法是将内容追加到对象末尾，insert是在中间插入内容，toString()方法是将其余两个字符串类型转换为String类，delete(起始位置，结束位置)删除偏移字符串，length（）获取字符串长度</p>
 
       
     </div>
@@ -332,13 +315,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/08/19/三个字符串类的比较/">三个字符串类的比较</a></p>
+        <p><span>本文标题:</span><a href="/2019/08/22/String类详解/">String类详解</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Crazy</a></p>
-        <p><span>发布时间:</span>2019-08-19, 18:16:48</p>
-        <p><span>最后更新:</span>2019-08-20, 16:27:58</p>
+        <p><span>发布时间:</span>2019-08-22, 17:02:54</p>
+        <p><span>最后更新:</span>2019-08-22, 17:05:38</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/08/19/三个字符串类的比较/" title="三个字符串类的比较">http://yoursite.com/2019/08/19/三个字符串类的比较/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/08/19/三个字符串类的比较/　　作者: Crazy" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/08/22/String类详解/" title="String类详解">http://yoursite.com/2019/08/22/String类详解/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/08/22/String类详解/　　作者: Crazy" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -351,15 +334,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/08/22/String类详解/">
-                    String类详解
+                <a href="/2019/10/08/打卡第一天/">
+                    打卡第一天
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/08/18/Java基础知识/">
-                    Java基础知识
+                <a href="/2019/08/19/三个字符串类的比较/">
+                    三个字符串类的比较
                 </a>
             </div>
         
@@ -407,7 +390,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"三个字符串类的比较　| Crazy　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"String类详解　| Crazy　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -426,8 +409,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2019/08/19/三个字符串类的比较/';
-            this.page.identifier = '2019/08/19/三个字符串类的比较/';
+            this.page.url = 'http://yoursite.com/2019/08/22/String类详解/';
+            this.page.identifier = '2019/08/22/String类详解/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -449,7 +432,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/08/22/String类详解/" title="上一篇: String类详解">
+            <a href="/2019/10/08/打卡第一天/" title="上一篇: 打卡第一天">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -457,7 +440,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/08/18/Java基础知识/" title="下一篇: Java基础知识">
+            <a href="/2019/08/19/三个字符串类的比较/" title="下一篇: 三个字符串类的比较">
                 <i class="fa fa-angle-right"></i>
             </a>
         
