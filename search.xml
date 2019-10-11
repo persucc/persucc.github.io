@@ -8,7 +8,7 @@
       <link href="/2019/10/09/%E6%89%93%E5%8D%A1%E7%AC%AC2%E5%A4%A9/"/>
       <url>/2019/10/09/%E6%89%93%E5%8D%A1%E7%AC%AC2%E5%A4%A9/</url>
       
-        <content type="html"><![CDATA[<a id="more"></a>]]></content>
+        <content type="html"><![CDATA[<p>今天主要是想写一个贪吃蛇游戏的思路和想法，下次再补代码。因为最近时间真的有点紧。</p><a id="more"></a><p>一.开发环境<br>Java + Eclipse<br>一.设计游戏界面<br>首先设计一个900*700的窗口,如下图所示：</p><img src="/2019/10/09/打卡第2天/1.png" title="This is an image"><p>25x25是一个单元格的大小，10是窗口与标题的间距，11是标题与游戏区的间隔，然后四周与窗口都是25的间隔，因为贪吃蛇图片素材刚好是25x25的，经过ps可以将标题的大小改变成所要的，所以才这样设计。以下就是图片：<br>game title：<img src="/2019/10/09/打卡第2天/tiltle.png" title="This is an image"><br>snake body：<img src="/2019/10/09/打卡第2天/body.png" title="This is an image"><br>snake food：<img src="/2019/10/09/打卡第2天/food.png" title="This is an image"><br>snake head：<img src="/2019/10/09/打卡第2天/right.png" title="This is an image"><br>二.游戏区设置<br>游戏区设置需要使用到JFrame来创建窗口，然后使用Jpanel画布来操作画笔对象Graphics来做图像。<br>三.蛇的数据结构<br>这里为了方便，我就用两个数组来分别存储x方向和y方向的位置，然后由这两个数组可以将图片显示到对应的地方，此外设置一个length来记录蛇的长度<br>四.蛇的方向控制<br>我这里是使用4个不同的蛇头图片来展示蛇移动4个不同的方向，例如，当蛇的方向由右变为下时，需要做的是将y的值递减25，x的值保持不变。同时当方向改变的一瞬间，需要将蛇头的图片改变，然后蛇的身体部分的后面一节按照改为前一节就可以了<br>五.实现暂停功能<br>使用Java的接口KeyListener来监听键盘，我这里使用空格键来实现暂停功能，所以只需要使用监听函数就可以实现了，同理蛇的左右的移动通过获取键盘的press来实现。<br>六.蛇吃食物<br>食物通过随机函数，随机生成在游戏区，蛇吃食物需要判断的是，蛇的头部是否与食物的x，y的坐标值相同，如果相同，则length+1<br>七.蛇的移动问题<br>蛇的移动通过Timer定时器来完成，每隔一定的时间就将数组中的值更新，这样就可以实现蛇的移动，实现速度。<br>八. 游戏结束<br>蛇如果头部节点与body节点由重复则游戏over，并且如果蛇碰壁来，也算是游戏结束，这些主要是通过if判断即可实现</p>]]></content>
       
       
       
@@ -16,9 +16,7 @@
             
             <tag> Java </tag>
             
-            <tag> Mail </tag>
-            
-            <tag> 算法 </tag>
+            <tag> Game </tag>
             
         </tags>
       

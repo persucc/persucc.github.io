@@ -15,15 +15,24 @@
 
 
 
-<meta name="keywords" content="Java,Mail,算法">
+<meta name="description" content="今天主要是想写一个贪吃蛇游戏的思路和想法，下次再补代码。因为最近时间真的有点紧。">
+<meta name="keywords" content="Java,Game">
 <meta property="og:type" content="article">
 <meta property="og:title" content="打卡第2天">
 <meta property="og:url" content="http://yoursite.com/2019/10/09/打卡第2天/index.html">
 <meta property="og:site_name" content="Crazy">
+<meta property="og:description" content="今天主要是想写一个贪吃蛇游戏的思路和想法，下次再补代码。因为最近时间真的有点紧。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-09T14:52:46.581Z">
+<meta property="og:image" content="http://yoursite.com/2019/10/09/打卡第2天/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/09/打卡第2天/tiltle.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/09/打卡第2天/body.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/09/打卡第2天/food.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/09/打卡第2天/right.png">
+<meta property="og:updated_time" content="2019-10-11T14:40:38.658Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="打卡第2天">
+<meta name="twitter:description" content="今天主要是想写一个贪吃蛇游戏的思路和想法，下次再补代码。因为最近时间真的有点紧。">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/09/打卡第2天/1.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -187,7 +196,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mail/">Mail</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图论算法/">图论算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game/">Game</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图论算法/">图论算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li></ul>
                     </div>
                 </section>
                 
@@ -292,7 +301,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mail/">Mail</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Game/">Game</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -302,7 +311,12 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <a id="more"></a>
+        <p>今天主要是想写一个贪吃蛇游戏的思路和想法，下次再补代码。因为最近时间真的有点紧。</p>
+<a id="more"></a>
+<p>一.开发环境<br>Java + Eclipse<br>一.设计游戏界面<br>首先设计一个900*700的窗口,如下图所示：</p>
+<img src="/2019/10/09/打卡第2天/1.png" title="This is an image">
+<p>25x25是一个单元格的大小，10是窗口与标题的间距，11是标题与游戏区的间隔，然后四周与窗口都是25的间隔，因为贪吃蛇图片素材刚好是25x25的，经过ps可以将标题的大小改变成所要的，所以才这样设计。以下就是图片：<br>game title：<img src="/2019/10/09/打卡第2天/tiltle.png" title="This is an image"><br>snake body：<img src="/2019/10/09/打卡第2天/body.png" title="This is an image"><br>snake food：<img src="/2019/10/09/打卡第2天/food.png" title="This is an image"><br>snake head：<img src="/2019/10/09/打卡第2天/right.png" title="This is an image"><br>二.游戏区设置<br>游戏区设置需要使用到JFrame来创建窗口，然后使用Jpanel画布来操作画笔对象Graphics来做图像。<br>三.蛇的数据结构<br>这里为了方便，我就用两个数组来分别存储x方向和y方向的位置，然后由这两个数组可以将图片显示到对应的地方，此外设置一个length来记录蛇的长度<br>四.蛇的方向控制<br>我这里是使用4个不同的蛇头图片来展示蛇移动4个不同的方向，例如，当蛇的方向由右变为下时，需要做的是将y的值递减25，x的值保持不变。同时当方向改变的一瞬间，需要将蛇头的图片改变，然后蛇的身体部分的后面一节按照改为前一节就可以了<br>五.实现暂停功能<br>使用Java的接口KeyListener来监听键盘，我这里使用空格键来实现暂停功能，所以只需要使用监听函数就可以实现了，同理蛇的左右的移动通过获取键盘的press来实现。<br>六.蛇吃食物<br>食物通过随机函数，随机生成在游戏区，蛇吃食物需要判断的是，蛇的头部是否与食物的x，y的坐标值相同，如果相同，则length+1<br>七.蛇的移动问题<br>蛇的移动通过Timer定时器来完成，每隔一定的时间就将数组中的值更新，这样就可以实现蛇的移动，实现速度。<br>八. 游戏结束<br>蛇如果头部节点与body节点由重复则游戏over，并且如果蛇碰壁来，也算是游戏结束，这些主要是通过if判断即可实现</p>
+
       
     </div>
     
@@ -313,7 +327,7 @@
         <p><span>本文标题:</span><a href="/2019/10/09/打卡第2天/">打卡第2天</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Crazy</a></p>
         <p><span>发布时间:</span>2019-10-09, 21:57:19</p>
-        <p><span>最后更新:</span>2019-10-09, 22:52:46</p>
+        <p><span>最后更新:</span>2019-10-11, 22:40:38</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/10/09/打卡第2天/" title="打卡第2天">http://yoursite.com/2019/10/09/打卡第2天/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/10/09/打卡第2天/　　作者: Crazy" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
