@@ -15,18 +15,14 @@
 
 
 
-<meta name="description" content="今天在编写一个字符串最大回文串的过程中，遇到了一个很奇怪的问题，为什么StringBuffer的toString方法不能等同于同样内容的String，这让我很困惑，我顺手就翻看了StringBuffer的源码，然后就看到了一个我从未见过的关键词transient，下面就对以上两个知识点进行解释">
-<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="打卡第三天">
-<meta property="og:url" content="http://yoursite.com/2019/10/12/打卡第三天/index.html">
+<meta property="og:title" content="Crazy">
+<meta property="og:url" content="http://yoursite.com/2020/07/03/MyBatis/index.html">
 <meta property="og:site_name" content="Crazy">
-<meta property="og:description" content="今天在编写一个字符串最大回文串的过程中，遇到了一个很奇怪的问题，为什么StringBuffer的toString方法不能等同于同样内容的String，这让我很困惑，我顺手就翻看了StringBuffer的源码，然后就看到了一个我从未见过的关键词transient，下面就对以上两个知识点进行解释">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-12T16:11:16.770Z">
+<meta property="og:updated_time" content="2020-07-03T13:35:15.902Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="打卡第三天">
-<meta name="twitter:description" content="今天在编写一个字符串最大回文串的过程中，遇到了一个很奇怪的问题，为什么StringBuffer的toString方法不能等同于同样内容的String，这让我很困惑，我顺手就翻看了StringBuffer的源码，然后就看到了一个我从未见过的关键词transient，下面就对以上两个知识点进行解释">
+<meta name="twitter:title" content="Crazy">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -58,7 +54,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>打卡第三天 | Crazy</title>
+<title>Crazy</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -265,11 +261,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-打卡第三天" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-MyBatis" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/10/12/打卡第三天/" class="article-date">
-      <time datetime="2019-10-12T01:51:51.000Z" itemprop="datePublished">2019-10-12</time>
+      <a href="/2020/07/03/MyBatis/" class="article-date">
+      <time datetime="2020-07-03T13:35:15.902Z" itemprop="datePublished">2020-07-03</time>
 </a>
 
 
@@ -280,45 +276,10 @@
       <input type="hidden" class="isFancy" />
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      打卡第三天
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
-    
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>今天在编写一个字符串最大回文串的过程中，遇到了一个很奇怪的问题，为什么StringBuffer的toString方法不能等同于同样内容的String，这让我很困惑，我顺手就翻看了StringBuffer的源码，然后就看到了一个我从未见过的关键词transient，下面就对以上两个知识点进行解释</p>
-<a id="more"></a>
-<p>一：transient<br>  在说明transient时，我首先要引入另一个我也没听过的概念序列化，在我阅读了某位大神的博客之后，我认为序列化就是将某个类的实例对象存储在内存空间中，众所周知，Java程序必须运行在JVM之上，那么Java的各种类的对象也都必须在JVM之上才能运行，如果JVM停止运行，那么类的对象都将消失，而序列化就是解决这个问题的，当jVM停止运行之后，序列化对象将依然存在，可供其他主机的JVM调用。此外，序列化对象是针对类中的成员变量的，如果是类的静态变量，方法都不会被序列化。最后说明一点，要想实现类的序列化，必须实现一个叫Serializable的接口，，这样才能序列化 ，在Java中有些类本来就实现了Serializable接口，比如String，或数组，或Enum，或Serializable，那么就可以对该对象进行序列化。然后回到我们的主题，因为序列化是默认将所有的成员变量都序列化，而transient就是阻止这种情况，所以当你在成员变量之前加上这个关键字时，这个成员变量将会不被序列化而存储。<br>  下面看这个例子，应该能更深刻的理解：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">import java.io.File;</span><br><span class="line">import java.io.FileInputStream;</span><br><span class="line">import java.io.FileOutputStream;</span><br><span class="line">import java.io.ObjectInputStream;</span><br><span class="line">import java.io.ObjectOutputStream;</span><br><span class="line">import java.io.Serializable;</span><br><span class="line"></span><br><span class="line">import exe_1.LeetCode.Gender;</span><br><span class="line"></span><br><span class="line">//import exe_1.Persons.Gender;</span><br><span class="line"></span><br><span class="line">public class LeetCode &#123;</span><br><span class="line">	public enum Gender&#123;</span><br><span class="line">		male,female</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) throws Exception&#123;</span><br><span class="line">        //生成文件person.out</span><br><span class="line">		File file = new File(&quot;person.out&quot;);</span><br><span class="line">        //ObjectOutputStream是能将一个对象转化成二进制流，前提是该方法需要传入OutputStream的流来转化</span><br><span class="line">		ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream(file));</span><br><span class="line">        //new一个Persons类的对象，放入文件中</span><br><span class="line">		oout.writeObject(new Persons(20,&quot;ym&quot;,Gender.male));</span><br><span class="line">		oout.close();</span><br><span class="line">		//从内存中指定位置读取该对象的二进制流并转化为对象</span><br><span class="line">		ObjectInputStream oin = new ObjectInputStream(new FileInputStream(file));</span><br><span class="line">		Object object = oin.readObject();</span><br><span class="line">		oin.close();</span><br><span class="line">		</span><br><span class="line">		Persons newPerson =  (Persons)object;</span><br><span class="line">        //打印出信息</span><br><span class="line">		System.out.println(newPerson.show());</span><br><span class="line">		//return newPerson.show();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Persons implements Serializable &#123;</span><br><span class="line">	</span><br><span class="line">	transient private Integer age = null;</span><br><span class="line">	private String name;</span><br><span class="line">	private Gender gender;</span><br><span class="line">	public Persons(int age , String name ,Gender gender) &#123;</span><br><span class="line">		this.age = age;</span><br><span class="line">		this.name = name ;</span><br><span class="line">		this.gender = gender;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public String show() &#123;</span><br><span class="line">		return age +&quot; &quot; + name + &quot; &quot; + gender;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line">输出结果为：</span><br><span class="line">null ym male</span><br></pre></td></tr></table></figure>
-
-<p>从以上例子可以看出，如果一个类的成员变量声明为transient，则该成员变量不会被序列化。<br>默认序列化机制：<br>    如果仅仅只是让某个类实现Serializable接口，而没有其它任何处理的话，则就是使用默认序列化机制。使用默认机制，在序列化对象时，不仅会序列化当前对象本身，还会对该对象引用的其它对象也进行序列化，同样地，这些其它对象引用的另外对象也将被序列化，以此类推。所以，如果一个对象包含的成员变量是容器类对象，而这些容器所含有的元素也是容器类对象，那么这个序列化的过程就会较复杂，开销也较大。</p>
-<p>二：StringBuffer.toString()与String的区别<br>下面请看这段代码：<br>String a = “aa”;<br>StringBuffer strb = new StringBuffer(a);<br>System.out.println(a == strb.toString());<br>这段代码将会输出null</p>
-<p>这是我在写这个题的时候，出现的问题，以上是我简化后的一个简单实验</p>
-<p>给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。<br>示例 1：<br>输入: “babad”<br>输出: “bab”<br>注意: “aba” 也是一个有效答案。<br>示例 2：<br>输入: “cbbd”<br>输出: “bb”</p>
-<p>一开始，我是真的没弄懂为啥以上等式不会成立，后面到了晚上突然醒悟过来，原因是这样的，String的”==“其实不是判断两个字符串的内容是否相等，而是判断两个字符串所引用的堆空间的地址是否相等，下面就再仔细解释一下，String a = “aa”;这代码执行是这样的，现在字符常量池中查找是否由aa这个字符串存在，如果有则直接将其地址复制于引用a，否则就在一个堆1空间（姑且这样说）生成aa并且返回地址给a。如果是String a = new String(“aa”)；这样的话，将会在堆2空间生成并返回地址个栈空间的引用a。下面就来解释为什么System.out.println(a == strb.toString());显而易见a是堆一空间的地址，而strb.toString()是堆二空间的地址（这里不细说，可自行百度，new出来的对象一定是堆2空间）。<br>如果使用下面这条语句<br>System.out.println(a.equalsIgnoreCase(strb.toString()));输出就为true，因为equals方法是能实现stirng内容的比较。<br>下面贴上我之所以wrong answer的代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public String longestPalindrome(String s) &#123;</span><br><span class="line">        StringBuffer strb = new StringBuffer(s);</span><br><span class="line">        String str = null;</span><br><span class="line">        int tmp = s.length() ;</span><br><span class="line">        while(tmp &gt;= 0)&#123;</span><br><span class="line">            for(int i=0; i &lt; s.length() - tmp + 1;++i)&#123;</span><br><span class="line">                if(tmp % 2 == 1)&#123;</span><br><span class="line">                   System.out.println(strb.substring(i , i+tmp/2+1) == new StringBuffer(strb.substring(i+tmp/2 , i+tmp/2*2+1)).reverse().toString());</span><br><span class="line">                     if(strb.substring(i , i+tmp/2+1) == new StringBuffer(strb.substring(i+tmp/2 , i+tmp/2*2+1)).reverse().toString())&#123;  </span><br><span class="line">                        str = strb.substring(i,i+tmp/2*2+1);</span><br><span class="line">                         break;</span><br><span class="line">                     &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    if(strb.substring(i , i+tmp/2).toString() == new StringBuffer(strb.substring(i+tmp/2 , i+tmp/2*2)).reverse().toString())&#123;</span><br><span class="line">                       str =  strb.substring(i,tmp/2*2+i);</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">             &#125;</span><br><span class="line">                </span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">            --tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        return str;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>所以只需要将if中的==改为equals方法就能ac了。<br>由以上我想到一个更容易错的例子：<br>String a = “aa”;<br>String b = new String(“aa”);<br>System.out.println（a==b）这里也是输出false的，理由同上！</p>
-
+        
       
     </div>
     
@@ -326,13 +287,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/10/12/打卡第三天/">打卡第三天</a></p>
+        <p><span>本文标题:</span><a href="/2020/07/03/MyBatis/"></a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Crazy</a></p>
-        <p><span>发布时间:</span>2019-10-12, 09:51:51</p>
-        <p><span>最后更新:</span>2019-10-13, 00:11:16</p>
+        <p><span>发布时间:</span>2020-07-03, 21:35:15</p>
+        <p><span>最后更新:</span>2020-07-03, 21:35:15</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/10/12/打卡第三天/" title="打卡第三天">http://yoursite.com/2019/10/12/打卡第三天/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/10/12/打卡第三天/　　作者: Crazy" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/07/03/MyBatis/" title="">http://yoursite.com/2020/07/03/MyBatis/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2020/07/03/MyBatis/　　作者: Crazy" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -345,15 +306,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2020/06/30/反射/">
-                    反射详解
+                <a href="/2020/07/15/多线程/">
+                    多线程
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/10/09/打卡第2天/">
-                    打卡第2天
+                <a href="/2020/06/30/泛型/">
+                    
                 </a>
             </div>
         
@@ -401,7 +362,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"打卡第三天　| Crazy　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"　| Crazy　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -420,8 +381,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2019/10/12/打卡第三天/';
-            this.page.identifier = '2019/10/12/打卡第三天/';
+            this.page.url = 'http://yoursite.com/2020/07/03/MyBatis/';
+            this.page.identifier = '2020/07/03/MyBatis/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -443,7 +404,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2020/06/30/反射/" title="上一篇: 反射详解">
+            <a href="/2020/07/15/多线程/" title="上一篇: 多线程">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -451,7 +412,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/10/09/打卡第2天/" title="下一篇: 打卡第2天">
+            <a href="/2020/06/30/泛型/" title="下一篇: ">
                 <i class="fa fa-angle-right"></i>
             </a>
         
